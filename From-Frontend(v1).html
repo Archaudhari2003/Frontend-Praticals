@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>User Registration</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    margin: 0;
+    padding: 20px;
+}
+
+.form-box {
+    max-width: 450px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2 { text-align: center; }
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+  margin-top: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    height: 42px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-height: 80px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+.flex {
+    display: flex;
+    gap: 15px;
+}
+
+.flex > div {
+    flex: 1;
+}
+
+.error-text {
+    font-size: 12px;
+    color: red;
+    min-height: 14px;
+}
+
+.radio-group {
+  margin-top: 10px;
+}
+
+.radio-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 12px;
+  margin-top: 6px;
+}
+
+.radio-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-group button {
+    flex: 1;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"] {
+  background-color: #1e88e5;
+}
+
+button[type="reset"] {
+  background-color: #e53935;
+}
+
+button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+/* Password strength */
+.strength {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+  animation: scaleIn 0.3s ease;
+}
+
+.popup-icon {
+  font-size: 50px;
+  color: #4caf50;
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #1e88e5;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .flex, .radio-options {
+    flex-direction: column;
+    height: auto;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+  .btn-group button {
+    width: 100%;
+  }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-box">
+<h2>User Registration</h2>
+
+<form id="regForm">
+
+<div class="flex">
+  <div>
+    <label for="fname">First Name</label>
+    <input id="fname" name="fname" placeholder="First Name">
+    <div class="error-text" id="err-fname"></div>
+  </div>
+
+  <div>
+    <label for="lname">Last Name</label>
+    <input id="lname" name="lname" placeholder="Last Name">
+    <div class="error-text" id="err-lname"></div>
+  </div>
+</div>
+
+<div>
+  <label for="age">Age</label>
+  <input type="number" id="age" name="age" placeholder="Age">
+  <div class="error-text" id="err-age"></div>
+</div>
+
+<div>
+  <label for="address">Address</label>
+  <textarea id="address" name="address" placeholder="Address"></textarea>
+  <div class="error-text" id="err-address"></div>
+</div>
+
+<div>
+  <label for="city">City</label>
+  <select id="city" name="city">
+     <option value="">Select City</option>
+     <option>Banaskantha</option>
+     <option>Palanpur</option>
+     <option>Ahmedabad</option>
+     <option>Mehsana</option>
+  </select>
+  <div class="error-text" id="err-city"></div>
+</div>
+
+<div class="radio-group">
+  <strong>Gender:</strong>
+  <div class="radio-options">
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label>
+    <label><input type="radio" name="gender" value="Other"> Other</label>
+  </div>
+  <div class="error-text" id="err-gender"></div>
+</div>
+
+<div>
+  <label for="contact">Contact Number</label>
+  <input type="tel" id="contact" name="contact" placeholder="Contact Number">
+  <div class="error-text" id="err-contact"></div>
+</div>
+
+<div>
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" placeholder="Email">
+  <div class="error-text" id="err-email"></div>
+</div>
+
+<div class="flex">
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Password">
+    <div class="strength" id="strength"></div>
+    <div class="error-text" id="err-password"></div>
+  </div>
+
+  <div>
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+    <div class="error-text" id="err-confirm"></div>
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="submit" id="submitBtn">Register</button>
+  <button type="reset">Reset</button>
+</div>
+
+</form>
+</div>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup">
+    <div class="popup-icon">✔</div>
+    <h3>Registration Successful</h3>
+    <p>Your registration was completed successfully.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+const scriptURL =
+ "https://script.google.com/macros/s/AKfycby2oka0nQ27BccY-X6OhOLV1V6glQEgTF1fMmRuVctkB7N1aPmoltoE-PKiwp2Ku23mTw/exec";
+
+const form = document.getElementById("regForm");
+const submitBtn = document.getElementById("submitBtn");
+
+const fnameEl = document.getElementById("fname");
+const lnameEl = document.getElementById("lname");
+const ageEl = document.getElementById("age");
+const addressEl = document.getElementById("address");
+const cityEl = document.getElementById("city");
+const contactEl = document.getElementById("contact");
+const emailEl = document.getElementById("email");
+const passwordEl = document.getElementById("password");
+const confirmEl = document.getElementById("confirmPassword");
+
+function showError(id, msg) {
+  document.getElementById("err-" + id).textContent = msg;
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-text").forEach(e => e.textContent = "");
+}
+
+/* -------- PASSWORD STRENGTH -------- */
+passwordEl.addEventListener("input", () => {
+  const p = passwordEl.value;
+  const s = document.getElementById("strength");
+
+  if (p.length < 6) {
+    s.textContent = "Weak ❌";
+  } 
+  else if (/[A-Z]/.test(p) && /\d/.test(p)) {
+    s.textContent = "Strong ✅";
+  } 
+  else {
+    s.textContent = "Medium ⚠";
+  }
+});
+
+/* -------- SAVE TO LOCALSTORAGE -------- */
+form.oninput = () => {
+  localStorage.setItem(
+    "formData",
+    JSON.stringify(Object.fromEntries(new FormData(form)))
+  );
+};
+
+/* -------- RESTORE INCLUDING RADIO -------- */
+window.onload = () => {
+  const saved = JSON.parse(localStorage.getItem("formData") || "{}");
+
+  Object.keys(saved).forEach(k => {
+    if (form[k]?.type === "radio") {
+      document
+        .querySelector(`input[name="${k}"][value="${saved[k]}"]`)
+        ?.click();
+    } 
+    else if (form[k]) {
+      form[k].value = saved[k];
+    }
+  });
+};
+
+/* -------- SUBMIT HANDLER -------- */
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  clearErrors();
+
+  const fname = fnameEl.value.trim();
+  const lname = lnameEl.value.trim();
+  const age = Number(ageEl.value.trim());
+  const address = addressEl.value.trim();
+  const city = cityEl.value.trim();
+  const contact = contactEl.value.trim();
+  const email = emailEl.value.trim();
+  const password = passwordEl.value;
+  const confirm = confirmEl.value;
+  const gender = document.querySelector('input[name="gender"]:checked');
+
+  let valid = true;
+
+  if (!fname) showError("fname", "Required"), valid=false;
+  if (!lname) showError("lname", "Required"), valid=false;
+  if (!age || age < 18) showError("age","18+ only"), valid=false;
+  if (!address) showError("address","Required"), valid=false;
+  if (!city) showError("city","Select city"), valid=false;
+  if (!gender) showError("gender","Select gender"), valid=false;
+  if (!/^[6-9]\d{9}$/.test(contact)) showError("contact","Invalid"), valid=false;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) showError("email","Invalid"), valid=false;
+  if (password.length < 6) showError("password","Min 6"), valid=false;
+  if (password !== confirm) showError("confirm","Mismatch"), valid=false;
+
+  if (!valid) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
+
+  try {
+    const res = await fetch(scriptURL, {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      document.querySelector(".popup p").textContent =
+        `Thank you, ${fname}! Your registration is complete.`;
+
+      form.reset();
+      localStorage.removeItem("formData");
+      showPopup();
+      setTimeout(closePopup, 2500);
+    } else {
+      alert("Server error");
+    }
+  } 
+  catch {
+    alert("Network error");
+  }
+  finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Register";
+  }
+});
+
+function showPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text to Voice</title>
+    <link rel="stylesheet" href="(text_to_voice)style.css">
+</head>
+<body>
+
+    <textarea 
+        id="text-input" 
+        class="textarea" 
+        placeholder="Enter text here...">
+    </textarea>
+
+    <button onclick="
+        speechSynthesis.speak(
+            new SpeechSynthesisUtterance(
+                document.getElementById('text-input').value
+            )
+        )
+    ">
+        Speak
+    </button>
+
+</body>
+</html>

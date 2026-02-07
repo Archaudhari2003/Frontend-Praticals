@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>User Registration</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    margin: 0;
+    padding: 20px;
+}
+
+.form-box {
+    max-width: 450px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+h2 { text-align: center; }
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+    height: 42px;
+}
+
+.flex {
+    display: flex;
+    gap: 15px;
+}
+
+.flex > div {
+    flex: 1;
+}
+
+.error-text {
+    font-size: 12px;
+    color: red;
+    min-height: 14px;
+}
+
+.radio-group {
+  margin-top: 10px;
+}
+
+.radio-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 42px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0 12px;
+  margin-top: 6px;
+}
+
+.radio-options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-group button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Submit button */
+button[type="submit"] {
+  background: #1e88e5;
+  color: white;
+}
+
+/* Reset button */
+button[type="reset"] {
+  background: #e53935;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background: #1565c0;
+}
+
+button[type="reset"]:hover {
+  background: #c62828;
+}
+
+button:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 300px;
+  width: 90%;
+}
+
+.popup-icon {
+  font-size: 50px;
+  color: #4caf50;
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #1e88e5;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .flex {
+    flex-direction: column;
+  }
+  .btn-group {
+    flex-direction: column;
+  }
+  .btn-group button {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-box">
+<h2>User Registration</h2>
+
+<form id="regForm">
+
+<div class="flex">
+    <div>
+        <input id="fname" name="fname" placeholder="First Name" required>
+        <div class="error-text" id="err-fname"></div>
+    </div>
+    <div>
+        <input id="lname" name="lname" placeholder="Last Name" required>
+        <div class="error-text" id="err-lname"></div>
+    </div>
+</div>
+
+<div>
+    <input type="number" id="age" name="age" placeholder="Age" required>
+    <div class="error-text" id="err-age"></div>
+</div>
+
+<div>
+   <select id="district" name="district" required>
+     <option value="">Select District</option>
+     <option>North Gujarat</option>
+     <option>South Gujarat</option>
+     <option>Saurashtra</option>
+     <option>Kutch</option>
+   </select>
+   <div class="error-text" id="err-district"></div>
+</div>
+
+<div>
+   <select id="village" name="village" required>
+     <option value="">Select Village</option>
+     <option>Village A</option>
+     <option>Village B</option>
+     <option>Village C</option>
+   </select>
+   <div class="error-text" id="err-village"></div>
+</div>
+
+<div class="radio-group">
+  <strong>Gender:</strong>
+  <div class="radio-options">
+    <label><input type="radio" name="gender" value="Male"> Male</label>
+    <label><input type="radio" name="gender" value="Female"> Female</label>
+    <label><input type="radio" name="gender" value="Other"> Other</label>
+  </div>
+  <div class="error-text" id="err-gender"></div>
+</div>
+
+<div>
+  <input type="tel" id="contact" name="contact" placeholder="Contact Number" required>
+  <div class="error-text" id="err-contact"></div>
+</div>
+
+<input type="hidden" name="source" value="webform123">
+
+<div class="btn-group">
+    <button type="submit" id="submitBtn">Register</button>
+    <button type="reset">Reset</button>
+</div>
+</form>
+</div>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup">
+    <div class="popup-icon">✔</div>
+    <h3>Registration Successful</h3>
+    <p>Your registration was completed successfully.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+const scriptURL =
+"https://script.google.com/macros/s/AKfycbyfCl8yaM6QikJeXELNr2aYl3SdHnVH35YJYl8n9kvy4HoRXehW6LM2Dk2Inftwy3oGrg/exec";
+
+const form = document.getElementById("regForm");
+const submitBtn = document.getElementById("submitBtn");
+
+function showError(id, msg) {
+  document.getElementById("err-" + id).textContent = msg;
+}
+
+function clearErrors() {
+  document.querySelectorAll(".error-text").forEach(e => e.textContent = "");
+}
+
+/* ---------- LOCAL STORAGE AUTO SAVE (CORRECT POSITION) ---------- */
+
+document.querySelectorAll("#regForm input, #regForm select").forEach(el => {
+  el.addEventListener("input", () => {
+    const formData = new FormData(form);
+    const obj = {};
+    formData.forEach((v,k) => obj[k] = v);
+    localStorage.setItem("formData", JSON.stringify(obj));
+  });
+});
+
+window.onload = function() {
+  const saved = localStorage.getItem("formData");
+  if (saved) {
+    const data = JSON.parse(saved);
+
+    for (let key in data) {
+      let field = document.getElementsByName(key)[0];
+
+      if (!field) continue;
+
+      if (field.type === "radio") {
+        let radio = document.querySelector(
+          `input[name="${key}"][value="${data[key]}"]`
+        );
+        if (radio) radio.checked = true;
+      } else {
+        field.value = data[key];
+      }
+    }
+  }
+};
+
+/* ---------- FORM SUBMISSION ---------- */
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  clearErrors();
+
+  const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
+  const ageVal = document.getElementById("age").value.trim();
+  const age = Number(ageVal);
+  const district = document.getElementById("district").value.trim();
+  const village = document.getElementById("village").value.trim();
+  const contact = document.getElementById("contact").value.trim();
+  const gender = document.querySelector('input[name="gender"]:checked');
+
+  const namePattern = /^[A-Za-z ]+$/;
+  let valid = true;
+
+  if (!fname) {
+    showError("fname","Required");
+    valid = false;
+  } else if (!namePattern.test(fname)) {
+    showError("fname","Only letters allowed");
+    valid = false;
+  }
+
+  if (!lname) {
+    showError("lname","Required");
+    valid = false;
+  } else if (!namePattern.test(lname)) {
+    showError("lname","Only letters allowed");
+    valid = false;
+  }
+
+  if (!ageVal) {
+    showError("age","Required");
+    valid = false;
+  } else if (age < 18) {
+    showError("age","Must be 18+");
+    valid = false;
+  }
+
+  if (!district) {
+    showError("district","Select district");
+    valid = false;
+  }
+
+  if (!village) {
+    showError("village","Select village");
+    valid = false;
+  }
+
+  if (!gender) {
+    showError("gender","Select gender");
+    valid = false;
+  }
+
+  if (!/^\d{10}$/.test(contact)) {
+    showError("contact","Enter valid 10-digit number");
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  submitBtn.textContent = "Submitting...";
+  submitBtn.disabled = true;
+
+  try {
+    const res = await fetch(scriptURL, {
+      method: "POST",
+      body: new FormData(form)
+    });
+
+    const data = await res.json();
+
+    if (data.status === "success") {
+      form.reset();
+      localStorage.removeItem("formData");
+      showPopup();
+      setTimeout(closePopup, 2500);
+    } else {
+      alert(data.message || "Server error");
+    }
+  } catch {
+    alert("Network error");
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Register";
+});
+
+form.addEventListener("reset", () => {
+  clearErrors();
+});
+
+/* ---------- POPUP ---------- */
+
+function showPopup() {
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
